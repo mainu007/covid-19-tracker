@@ -1,0 +1,14 @@
+.logoContainer{
+    padding: 24px 0;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.logoImage{
+    height: auto;
+    width: 100%;
+    max-width: 210px;
+    padding-right: 33px;
+}

@@ -1,0 +1,25 @@
+.Container .FormControl{
+      width: 210px;
+      text-align: left;
+      background-color: #fff;
+}
+.ItemName{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.CountryFlag{
+    height: 20px;
+    padding-right: 5px;
+}
+@media (max-width:499px){
+    .Container{
+        width: 100%;
+        margin-top: 24px;
+    }
+.FormControl{
+    width: 100% !important;
+}
+    
+}

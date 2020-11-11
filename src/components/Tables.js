@@ -1,12 +1,12 @@
-import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import React from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import numeral from 'numeral';
 
 const StyledTableCell = withStyles((theme) => ({
    head: {
@@ -20,7 +20,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
    root: {
-      "&:nth-of-type(odd)": {
+      '&:nth-of-type(odd)': {
          backgroundColor: theme.palette.action.hover,
       },
    },
@@ -28,54 +28,50 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
    container: {
-      height: "46vw",
-      [theme.breakpoints.down("sm")]: {
-         height: "800px",
-      },
+      borderBottom: `1px solid ${theme.palette.action.hover}`,
+      boxShadow: 'none',
+      height: '400px',
+   },
+   headerTitle: {
+      marginBottom: 15,
+      marginTop: 5,
    },
    table: {
-      minWidth: "100%",
+      minWidth: '100%',
    },
 }));
 
-export default function CustomizedTables({ data }) {
+const tableDataProses = (data, type) => {
+   return data.sort((a, b) => (a[type] > b[type] ? -1 : 1));
+};
+
+export default function CustomizedTables({ data, dataType = 'cases' }) {
    const classes = useStyles();
    return (
-      <TableContainer className={classes.container} component={Paper}>
-         <Table
-            className={classes.table}
-            size="small"
-            stickyHeader
-            aria-label="sticky table"
-         >
-            <TableHead>
-               <TableRow>
-                  <StyledTableCell>Countries</StyledTableCell>
-                  <StyledTableCell align="right">Infected</StyledTableCell>
-                  <StyledTableCell align="right">Active</StyledTableCell>
-                  <StyledTableCell align="right">Deaths</StyledTableCell>
-               </TableRow>
-            </TableHead>
-            <TableBody>
-               {data[0] &&
-                  data.map((country) => (
-                     <StyledTableRow key={country.country}>
-                        <StyledTableCell component="th" scope="row">
-                           {country.country}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                           {country.cases}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                           {country.active}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                           {country.deaths}
-                        </StyledTableCell>
-                     </StyledTableRow>
-                  ))}
-            </TableBody>
-         </Table>
-      </TableContainer>
+      <>
+         <h3 className={classes.headerTitle}>Live Cases by Country</h3>
+         <TableContainer className={classes.container} component={Paper}>
+            <Table
+               className={classes.table}
+               size="small"
+               stickyHeader
+               aria-label="sticky table"
+            >
+               <TableBody>
+                  {data[0] &&
+                     tableDataProses(data, dataType).map((country) => (
+                        <StyledTableRow key={country.country}>
+                           <StyledTableCell component="th" scope="row">
+                              {country.country}
+                           </StyledTableCell>
+                           <StyledTableCell align="right">
+                              {numeral(country[dataType]).format('0,0')}
+                           </StyledTableCell>
+                        </StyledTableRow>
+                     ))}
+               </TableBody>
+            </Table>
+         </TableContainer>
+      </>
    );
 }

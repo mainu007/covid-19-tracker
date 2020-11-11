@@ -1,7 +1,20 @@
-.logoContainer{
-    margin: 32px 0;
-    text-align: center;
+*{
+    margin: 0;
 }
-.logoImage{
-    max-width: 100%;
+.App{
+    background-color: #F5F6FA;
+    height: 100vh;
+}
+
+.MapCard{
+    margin-top: 24px;
+}
+.MapCardContent{
+    padding: 15px !important;
+}
+
+@media (max-width:959px){
+    .App{
+        height: auto;
+    }
 }

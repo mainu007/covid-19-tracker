@@ -1,0 +1,7 @@
+.Map{
+    height: 565px;
+}
+.MapContainer{
+    height: 100%;
+    border-radius: 3px;
+}
